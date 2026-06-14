@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.carewatch.features.patient.controller.PatientProfileManagementController">
+
+    <!-- Main Content Panel -->
+    <VBox spacing="20" style="-fx-padding: 40px 30px 30px 30px;">
+
+        <!-- Header Row -->
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="Patient Medical Registry" styleClass="title-label"/>
+                <Label text="Manage age, gender, risk classification, disease parameters and doctor assignments." styleClass="subtitle-label"/>
+            </VBox>
+            <Label fx:id="recordCountLabel" text="0 records"
+                   style="-fx-text-fill: #8b949e; -fx-font-size: 13px; -fx-background-color: #21262d; -fx-padding: 5px 12px; -fx-background-radius: 4px; -fx-border-color: #30363d; -fx-border-width: 1px; -fx-border-radius: 4px;"/>
+        </HBox>
+
+        <!-- Main Content Area -->
+        <HBox fx:id="mainContentBox" spacing="30" VBox.vgrow="ALWAYS">
+
+            <!-- Left Column: Patient Profile Editor Form -->
+            <VBox spacing="15" minWidth="330" maxWidth="330">
+                <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                    <VBox spacing="15" styleClass="card">
+                        <Label text="Medical Information" styleClass="section-header"/>
+
+                        <VBox spacing="5">
+                            <Label text="Select Patient User" styleClass="body-label"/>
+                            <ComboBox fx:id="patientUserComboBox" promptText="Choose Active Patient" maxWidth="Infinity" prefHeight="36"/>
+                        </VBox>
+
+                        <HBox spacing="15">
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <Label text="Age" styleClass="body-label"/>
+                                <TextField fx:id="ageField" promptText="e.g. 28" prefHeight="36"/>
+                            </VBox>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <Label text="Gender" styleClass="body-label"/>
+                                <ComboBox fx:id="genderComboBox" promptText="Select" maxWidth="Infinity" prefHeight="36"/>
+                            </VBox>
+                        </HBox>
+
+                        <VBox spacing="5">
+                            <Label text="Phone Number" styleClass="body-label"/>
+                            <TextField fx:id="phoneField" promptText="e.g. +1234567890" prefHeight="36"/>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label text="Home Address" styleClass="body-label"/>
+                            <TextArea fx:id="addressArea" promptText="Street address details..." prefHeight="70" wrapText="true"/>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label text="Disease / Diagnosis" styleClass="body-label"/>
+                            <TextField fx:id="diseaseTypeField" promptText="e.g. Hypertension" prefHeight="36"/>
+                        </VBox>
+
+                        <HBox spacing="15">
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <Label text="Risk Level" styleClass="body-label"/>
+                                <ComboBox fx:id="riskLevelComboBox" promptText="Select" maxWidth="Infinity" prefHeight="36"/>
+                            </VBox>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <Label text="Assigned Doctor" styleClass="body-label"/>
+                                <ComboBox fx:id="assignedDoctorComboBox" promptText="Select" maxWidth="Infinity" prefHeight="36"/>
+                            </VBox>
+                        </HBox>
+
+                        <VBox spacing="5">
+                            <Label text="Emergency Contact Name/Phone" styleClass="body-label"/>
+                            <TextField fx:id="emergencyContactField" promptText="e.g. Mary Doe (+12345...)" prefHeight="36"/>
+                        </VBox>
+
+                        <!-- Action Buttons -->
+                        <VBox spacing="10" style="-fx-padding: 10px 0 0 0;">
+                            <Button text="Save Patient Profile" onAction="#handleSaveProfile" styleClass="primary-button" maxWidth="Infinity" prefHeight="38"/>
+                            <HBox spacing="10">
+                                <Button text="Update Profile" onAction="#handleUpdateProfile" styleClass="secondary-button" HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="36"/>
+                                <Button text="Clear" onAction="#handleClear" HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="36"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+
+            <!-- Right Column: Profiles Listing Table & Search -->
+            <VBox spacing="20" HBox.hgrow="ALWAYS">
+
+                <!-- Search Header Panel -->
+                <HBox spacing="12" alignment="CENTER_LEFT" styleClass="info-card" prefHeight="62">
+                    <TextField fx:id="searchField" promptText="Search by name, email or phone..." HBox.hgrow="ALWAYS" prefHeight="36" onKeyReleased="#handleSearchKeyPress"/>
+                    <Button text="Search" onAction="#handleSearch" styleClass="primary-button" prefHeight="36" prefWidth="90"/>
+                    <Region style="-fx-pref-width: 8px;"/>
+                    <Label text="Risk:" styleClass="body-label" style="-fx-font-weight: bold;"/>
+                    <ComboBox fx:id="riskFilterComboBox" onAction="#handleRiskFilter" prefWidth="120" prefHeight="36"/>
+                    <Button text="↻ Refresh" onAction="#handleRefresh" prefHeight="36" prefWidth="90"/>
+                </HBox>
+
+                <!-- Table Registry Grid -->
+                <TableView fx:id="patientTable" VBox.vgrow="ALWAYS" styleClass="info-card">
+                    <columns>
+                        <TableColumn fx:id="patientIdColumn" text="ID"                prefWidth="50"/>
+                        <TableColumn fx:id="nameColumn"      text="Patient Name"      prefWidth="130"/>
+                        <TableColumn fx:id="emailColumn"     text="Email Address"     prefWidth="160"/>
+                        <TableColumn fx:id="ageColumn"       text="Age"               prefWidth="50"/>
+                        <TableColumn fx:id="genderColumn"    text="Gender"            prefWidth="80"/>
+                        <TableColumn fx:id="phoneColumn"     text="Phone"             prefWidth="110"/>
+                        <TableColumn fx:id="diseaseColumn"   text="Disease"           prefWidth="120"/>
+                        <TableColumn fx:id="riskColumn"      text="Risk"              prefWidth="90"/>
+                        <TableColumn fx:id="doctorColumn"    text="Assigned Doctor"   prefWidth="130"/>
+                        <TableColumn fx:id="emergencyColumn" text="Emergency Contact" prefWidth="140"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                    <placeholder>
+                        <Label text="No patient profiles found. Create the first one using the form on the left." style="-fx-text-fill: #8b949e; -fx-font-style: italic; -fx-font-size: 13px;"/>
+                    </placeholder>
+                </TableView>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <!-- Asynchronous Clinical Loader Overlay -->
+    <StackPane fx:id="loadingOverlay" visible="false" styleClass="loader-overlay">
+        <VBox alignment="CENTER" spacing="15">
+            <ProgressIndicator prefWidth="54" prefHeight="54" styleClass="progress-spinner"/>
+            <Label text="Loading Clinical Registry..." styleClass="loader-text"/>
+        </VBox>
+    </StackPane>
+</StackPane>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.carewatch.features.user.controller.UserManagementController">
+
+    <!-- Content Workspace -->
+    <VBox spacing="20" style="-fx-padding: 40px 30px 30px 30px;">
+        <!-- Sub-page Title Header -->
+        <VBox spacing="5">
+            <Label text="Super Admin User Directory" styleClass="title-label"/>
+            <Label text="Manage and audit system accounts for Patients, Doctors, and Admin personnel." styleClass="subtitle-label"/>
+        </VBox>
+
+        <!-- Content HBox -->
+        <HBox spacing="30" VBox.vgrow="ALWAYS">
+            <!-- Left Side: User Creation & Update Form -->
+            <VBox spacing="20" minWidth="320" maxWidth="320">
+                <VBox spacing="10" styleClass="card" VBox.vgrow="ALWAYS">
+                    <Label text="Manage User Profile" styleClass="section-header"/>
+                    
+                    <VBox spacing="5">
+                        <Label text="Full Name" styleClass="body-label"/>
+                        <TextField fx:id="fullNameField" promptText="e.g. John Doe" prefHeight="36"/>
+                    </VBox>
+                    
+                    <VBox spacing="5">
+                        <Label text="Email Address" styleClass="body-label"/>
+                        <TextField fx:id="emailField" promptText="e.g. john@gmail.com" prefHeight="36"/>
+                    </VBox>
+                    
+                    <VBox spacing="5">
+                        <Label text="Password" styleClass="body-label"/>
+                        <PasswordField fx:id="passwordField" promptText="••••••••" prefHeight="36"/>
+                    </VBox>
+                    
+                    <VBox spacing="5">
+                        <Label text="Role Type" styleClass="body-label"/>
+                        <ComboBox fx:id="roleComboBox" promptText="Select Role" maxWidth="Infinity" prefHeight="36"/>
+                    </VBox>
+                    
+                    <VBox spacing="5">
+                        <Label text="Account Status" styleClass="body-label"/>
+                        <ComboBox fx:id="statusComboBox" promptText="Select Status" maxWidth="Infinity" prefHeight="36"/>
+                    </VBox>
+                    
+                    <Region VBox.vgrow="ALWAYS"/>
+                    
+                    <!-- Actions -->
+                    <VBox spacing="10">
+                        <Button text="Add New User" onAction="#handleAddUser" styleClass="primary-button" maxWidth="Infinity" prefHeight="38"/>
+                        <HBox spacing="10">
+                            <Button text="Update Status" onAction="#handleUpdateStatus" styleClass="secondary-button" HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="36"/>
+                            <Button text="Clear" onAction="#handleClear" HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="36"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+
+            <!-- Right Side: User List & Filters -->
+            <VBox spacing="20" HBox.hgrow="ALWAYS">
+                <!-- Search & Filters Card -->
+                <HBox spacing="15" alignment="CENTER_LEFT" styleClass="info-card" prefHeight="70">
+                    <TextField fx:id="searchField" promptText="Search name or email..." HBox.hgrow="ALWAYS" prefHeight="36"/>
+                    <Button text="Search" onAction="#handleSearch" styleClass="primary-button" prefHeight="36"/>
+                    <Region style="-fx-pref-width: 10px;"/>
+                    <Label text="Filter Role:" styleClass="body-label"/>
+                    <ComboBox fx:id="roleFilterComboBox" onAction="#handleFilter" prefWidth="150" prefHeight="36"/>
+                    <Button text="Refresh" onAction="#handleRefresh" prefHeight="36"/>
+                </HBox>
+
+                <!-- Data Table View -->
+                <TableView fx:id="userTable" VBox.vgrow="ALWAYS" styleClass="info-card">
+                    <columns>
+                        <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+                        <TableColumn fx:id="nameColumn" text="Full Name" prefWidth="180"/>
+                        <TableColumn fx:id="emailColumn" text="Email" prefWidth="200"/>
+                        <TableColumn fx:id="roleColumn" text="Role" prefWidth="120"/>
+                        <TableColumn fx:id="statusColumn" text="Status" prefWidth="90"/>
+                        <TableColumn fx:id="dateColumn" text="Created At" prefWidth="150"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <!-- Async Loading Overlay -->
+    <StackPane fx:id="loadingOverlay" visible="false" styleClass="loader-overlay">
+        <VBox alignment="CENTER" spacing="15">
+            <ProgressIndicator prefWidth="50" prefHeight="50" styleClass="progress-spinner"/>
+            <Label text="Syncing user directory..." styleClass="loader-text"/>
+        </VBox>
+    </StackPane>
+</StackPane>

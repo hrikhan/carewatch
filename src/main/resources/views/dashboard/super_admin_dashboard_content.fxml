@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+             xmlns:fx="http://javafx.com/fxml/1"
+             fitToWidth="true" style="-fx-background-color: transparent;">
+    <VBox spacing="30" style="-fx-padding: 40px 30px 30px 30px;">
+        <VBox spacing="10">
+            <Label text="System Administration Dashboard" styleClass="title-label"/>
+            <Label text="Monitor telemetry, manage tenant roles, view global logs, and configure security parameters." styleClass="subtitle-label"/>
+        </VBox>
+        
+        <!-- System Telemetry Cards -->
+        <FlowPane hgap="20" vgap="20">
+            <!-- Card 1 -->
+            <VBox spacing="10" styleClass="info-card" prefWidth="210">
+                <Label text="Database Status" styleClass="info-card-title"/>
+                <Label fx:id="lblDbStatus" text="Loading..." styleClass="info-card-value" style="-fx-text-fill: #14b8a6;"/>
+                <Label fx:id="lblDbStatusSub" text="Ping latency" styleClass="subtitle-label" style="-fx-font-size: 12px;"/>
+            </VBox>
+            <!-- Card 2 -->
+            <VBox spacing="10" styleClass="info-card" prefWidth="210">
+                <Label text="Registered Accounts" styleClass="info-card-title"/>
+                <Label fx:id="lblTotalUsers" text="Loading..." styleClass="info-card-value"/>
+                <Label fx:id="lblTotalUsersSub" text="System profiles" styleClass="subtitle-label" style="-fx-font-size: 12px;"/>
+            </VBox>
+            <!-- Card 3 -->
+            <VBox spacing="10" styleClass="info-card" prefWidth="210">
+                <Label text="Total Patient Telemetry" styleClass="info-card-title"/>
+                <Label fx:id="lblTotalVitals" text="Loading..." styleClass="info-card-value" style="-fx-text-fill: #58a6ff;"/>
+                <Label fx:id="lblTotalVitalsSub" text="Telemetry packets" styleClass="subtitle-label" style="-fx-font-size: 12px;"/>
+            </VBox>
+        </FlowPane>
+
+        <!-- Visual Analytics Charts -->
+        <HBox spacing="20" alignment="CENTER_LEFT">
+            <!-- Pie Chart Card -->
+            <VBox spacing="10" styleClass="info-card" HBox.hgrow="ALWAYS" prefHeight="260" prefWidth="330">
+                <Label text="User Role Distribution" styleClass="section-header"/>
+                <PieChart fx:id="rolePieChart" legendSide="RIGHT" prefHeight="185"/>
+            </VBox>
+            <!-- Bar Chart Card -->
+            <VBox spacing="10" styleClass="info-card" HBox.hgrow="ALWAYS" prefHeight="260" prefWidth="330">
+                <Label text="Patient Diagnosis Distribution" styleClass="section-header"/>
+                <BarChart fx:id="diseaseBarChart" legendVisible="false" prefHeight="185">
+                    <xAxis>
+                        <CategoryAxis label="Disease Type"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Patients"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </HBox>
+
+        <!-- Actions / Operations Panel -->
+        <VBox spacing="15" styleClass="info-card">
+            <Label text="Administrative Tools" styleClass="section-header"/>
+            <Label text="Warning: Actions performed here affect global configuration states. Ensure proper authorization before modifying values." styleClass="body-label" wrapText="true"/>
+            <HBox spacing="15">
+                <Button text="Manage User Directory" styleClass="primary-button" onAction="#handleShowUserManagement" />
+                <Button text="Patient Profiles" styleClass="primary-button" onAction="#handleShowPatientProfiles" />
+                <Button text="View Access Audit Logs" />
+                <Button text="Database Migration Tools" styleClass="secondary-button" />
+            </HBox>
+        </VBox>
+    </VBox>
+</ScrollPane>

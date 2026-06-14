@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.carewatch.features.vitals.controller.VitalsHistoryController">
+
+    <!-- Main Content Panel -->
+    <VBox spacing="20" style="-fx-padding: 40px 30px 30px 30px;">
+
+        <!-- Page Header -->
+        <HBox alignment="CENTER_LEFT" spacing="15">
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="My Health Vitals Log" styleClass="title-label"/>
+                <Label text="Track all your manually submitted vital signs and medical urgency metrics over time." styleClass="subtitle-label"/>
+            </VBox>
+            <HBox spacing="10" alignment="CENTER">
+                <Label fx:id="recordCountLabel" text="0 records"
+                       style="-fx-text-fill: #8b949e; -fx-font-size: 13px; -fx-background-color: #21262d; -fx-padding: 5px 12px; -fx-background-radius: 4px; -fx-border-color: #30363d; -fx-border-width: 1px; -fx-border-radius: 4px;"/>
+                <Button text="↻ Refresh" onAction="#handleRefresh" prefHeight="36" prefWidth="100"/>
+                <Button text="＋ Submit New Vitals" onAction="#handleShowSubmitForm" styleClass="primary-button" prefHeight="36"/>
+            </HBox>
+        </HBox>
+
+        <!-- Search and Filter Bar -->
+        <HBox spacing="12" alignment="CENTER_LEFT" styleClass="info-card" prefHeight="62">
+            <TextField fx:id="searchField" promptText="Search by date or symptoms..." HBox.hgrow="ALWAYS" prefHeight="38" onKeyReleased="#handleSearchKeyPress"/>
+            <Button text="Search" onAction="#handleSearch" styleClass="primary-button" prefHeight="38" prefWidth="90"/>
+            <Region style="-fx-pref-width: 10px;"/>
+            <Label text="Urgency:" styleClass="body-label" style="-fx-font-weight: bold;"/>
+            <ComboBox fx:id="urgencyFilterComboBox" onAction="#handleFilter" prefWidth="140" prefHeight="38"/>
+            <Button text="Clear Filters" onAction="#handleClearFilters" prefHeight="38" prefWidth="100"/>
+        </HBox>
+
+        <!-- Modern TableView -->
+        <TableView fx:id="vitalsTable" VBox.vgrow="ALWAYS" styleClass="info-card">
+            <columns>
+                <TableColumn fx:id="dateColumn"      text="Recorded At"        prefWidth="155"/>
+                <TableColumn fx:id="heartRateColumn" text="❤ Heart Rate (bpm)" prefWidth="140"/>
+                <TableColumn fx:id="oxygenColumn"    text="💧 Oxygen (%)"       prefWidth="110"/>
+                <TableColumn fx:id="bpColumn"        text="⚡ Blood Pressure"   prefWidth="130"/>
+                <TableColumn fx:id="tempColumn"      text="🌡 Temp (°F)"        prefWidth="110"/>
+                <TableColumn fx:id="sugarColumn"     text="🩸 Sugar (mg/dL)"    prefWidth="120"/>
+                <TableColumn fx:id="urgencyColumn"   text="Urgency"            prefWidth="110"/>
+                <TableColumn fx:id="symptomsColumn"  text="Symptoms Notes"     prefWidth="230"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+            <placeholder>
+                <Label text="No vital records found. Submit your first vitals using the button above." style="-fx-text-fill: #8b949e; -fx-font-style: italic; -fx-font-size: 13px;"/>
+            </placeholder>
+        </TableView>
+
+        <!-- Bottom Footer -->
+        <HBox alignment="CENTER_RIGHT" spacing="15" style="-fx-padding: 5px 0 0 0;">
+            <Button text="Return to Dashboard" onAction="#handleBack" prefWidth="180" prefHeight="38"/>
+        </HBox>
+    </VBox>
+
+    <!-- Async Loading Overlay -->
+    <StackPane fx:id="loadingOverlay" visible="false" styleClass="loader-overlay">
+        <VBox alignment="CENTER" spacing="15">
+            <ProgressIndicator prefWidth="54" prefHeight="54" styleClass="progress-spinner"/>
+            <Label text="Retrieving Health Records..." styleClass="loader-text"/>
+        </VBox>
+    </StackPane>
+</StackPane>

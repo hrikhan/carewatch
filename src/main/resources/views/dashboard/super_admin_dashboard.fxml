@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.carewatch.features.dashboard.controller.SuperAdminDashboardController"
+            prefWidth="960" prefHeight="640">
+
+    <!-- Left Navigation Sidebar -->
+    <left>
+        <VBox spacing="15" styleClass="sidebar" prefWidth="250">
+            <!-- Brand Logo -->
+            <Label text="CareWatch" styleClass="sidebar-brand"/>
+            
+            <!-- Navigation Links -->
+            <VBox spacing="8" VBox.vgrow="ALWAYS">
+                <Button fx:id="btnDashboard" text="Dashboard" styleClass="sidebar-button" onAction="#handleShowDashboard" />
+                <Button fx:id="btnUsers" text="Manage Users" styleClass="sidebar-button" onAction="#handleShowUserManagement" />
+                <Button fx:id="btnPatients" text="Patient Profiles" styleClass="sidebar-button" onAction="#handleShowPatientProfiles" />
+                <Button fx:id="btnReports" text="Reports &amp; Analytics" styleClass="sidebar-button" onAction="#handleShowReports" />
+            </VBox>
+            
+            <Region VBox.vgrow="ALWAYS" />
+            
+            <!-- Profile Status Box at Bottom -->
+            <VBox spacing="10" styleClass="sidebar-profile-box">
+                <VBox spacing="2">
+                    <Label fx:id="welcomeLabel" text="Welcome, Admin" styleClass="sidebar-profile-name" wrapText="true"/>
+                    <Label text="System Administrator" styleClass="sidebar-profile-role"/>
+                </VBox>
+                <Button text="Sign Out" onAction="#handleLogout" styleClass="logout-button" maxWidth="Infinity" prefHeight="32"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Center Dynamic Workspace Content Area -->
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-background-color: transparent;" />
+    </center>
+</BorderPane>

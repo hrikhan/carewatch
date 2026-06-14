@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.carewatch.features.patient.controller.MyProfileController">
+
+    <!-- Profile Display Card (Centered VBox) -->
+    <VBox alignment="CENTER" style="-fx-padding: 40px 30px 30px 30px;">
+        <VBox fx:id="mainContentBox" spacing="25" alignment="CENTER_LEFT" maxWidth="560" styleClass="card" VBox.vgrow="NEVER">
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-border-color: transparent transparent #30363d transparent; -fx-border-width: 0 0 1.5px 0; -fx-padding: 0 0 15px 0;">
+                <VBox spacing="3">
+                    <Label fx:id="patientNameLabel" text="Patient Name" styleClass="title-label" style="-fx-font-size: 24px;"/>
+                    <Label fx:id="emailLabel" text="patient@gmail.com" styleClass="subtitle-label"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="HEALTH CARD" style="-fx-text-fill: #14b8a6; -fx-font-weight: bold; -fx-font-size: 13px; -fx-border-color: #14b8a6; -fx-border-width: 1px; -fx-border-radius: 4px; -fx-padding: 4px 8px;"/>
+            </HBox>
+
+            <!-- Profile Information Grid -->
+            <GridPane hgap="25" vgap="18">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="150" prefWidth="180"/>
+                    <ColumnConstraints minWidth="200" prefWidth="250"/>
+                </columnConstraints>
+
+                <!-- Age -->
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="Age" styleClass="subtitle-label" style="-fx-font-size: 11px;"/>
+                    <Label fx:id="ageLabel" text="Loading..." styleClass="body-label" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <!-- Gender -->
+                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="Gender" styleClass="subtitle-label" style="-fx-font-size: 11px;"/>
+                    <Label fx:id="genderLabel" text="Loading..." styleClass="body-label" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <!-- Phone -->
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Label text="Phone Number" styleClass="subtitle-label" style="-fx-font-size: 11px;"/>
+                    <Label fx:id="phoneLabel" text="Loading..." styleClass="body-label" style="-fx-font-size: 15px;"/>
+                </VBox>
+
+                <!-- Emergency Contact -->
+                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Label text="Emergency Contact" styleClass="subtitle-label" style="-fx-font-size: 11px;"/>
+                    <Label fx:id="emergencyLabel" text="Loading..." styleClass="body-label" style="-fx-font-size: 15px;"/>
+                </VBox>
+
+                <!-- Diagnosis -->
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                    <Label text="Diagnosis / Disease" styleClass="subtitle-label" style="-fx-font-size: 11px;"/>
+                    <Label fx:id="diseaseLabel" text="Loading..." styleClass="body-label" style="-fx-font-size: 15px; -fx-text-fill: #58a6ff; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <!-- Risk Level -->
+                <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <Label text="Risk Level Classification" styleClass="subtitle-label" style="-fx-font-size: 11px;"/>
+                    <Label fx:id="riskLabel" text="Loading..." styleClass="body-label" style="-fx-font-size: 15px; -fx-text-fill: #ff7b72; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <!-- Assigned Physician -->
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
+                    <Label text="Assigned Telehealth Physician" styleClass="subtitle-label" style="-fx-font-size: 11px;"/>
+                    <Label fx:id="doctorLabel" text="Loading..." styleClass="body-label" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #14b8a6;"/>
+                </VBox>
+
+                <!-- Home Address -->
+                <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">
+                    <Label text="Registered Home Address" styleClass="subtitle-label" style="-fx-font-size: 11px;"/>
+                    <Label fx:id="addressLabel" text="Loading..." styleClass="body-label" wrapText="true"/>
+                </VBox>
+            </GridPane>
+
+            <!-- Back Button -->
+            <HBox alignment="CENTER_RIGHT" style="-fx-padding: 15px 0 0 0;">
+                <Button text="Return to Dashboard" onAction="#handleBack" styleClass="primary-button" prefWidth="180" prefHeight="38"/>
+            </HBox>
+        </VBox>
+    </VBox>
+
+    <!-- Async Loading Overlay -->
+    <StackPane fx:id="loadingOverlay" visible="false" styleClass="loader-overlay">
+        <VBox alignment="CENTER" spacing="15">
+            <ProgressIndicator prefWidth="50" prefHeight="50" styleClass="progress-spinner"/>
+            <Label text="Accessing Clinical Database..." styleClass="loader-text"/>
+        </VBox>
+    </StackPane>
+</StackPane>
