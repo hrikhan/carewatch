@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+             xmlns:fx="http://javafx.com/fxml/1"
+             fitToWidth="true" style="-fx-background-color: transparent;">
+    <VBox spacing="30" style="-fx-padding: 40px 30px 30px 30px;">
+        <VBox spacing="10">
+            <Label text="Clinical Care Hub" styleClass="title-label"/>
+            <Label text="Access patient electronic health records, issue prescriptions, and coordinate digital consults." styleClass="subtitle-label"/>
+        </VBox>
+        
+        <!-- Clinical Queue Cards -->
+        <FlowPane hgap="20" vgap="20">
+            <!-- Card 1 -->
+            <VBox spacing="10" styleClass="info-card" prefWidth="210">
+                <Label text="Total Patients" styleClass="info-card-title"/>
+                <Label fx:id="lblActivePatients" text="Loading..." styleClass="info-card-value"/>
+                <Label fx:id="lblActivePatientsSub" text="System registered" styleClass="subtitle-label" style="-fx-font-size: 12px;"/>
+            </VBox>
+            <!-- Card 2 -->
+            <VBox spacing="10" styleClass="info-card" prefWidth="210">
+                <Label text="Emergency Alerts" styleClass="info-card-title"/>
+                <Label fx:id="lblEmergencyAlerts" text="Loading..." styleClass="info-card-value" style="-fx-text-fill: #ff7b72;"/>
+                <Label fx:id="lblEmergencyAlertsSub" text="Active triage" styleClass="subtitle-label" style="-fx-font-size: 12px;"/>
+            </VBox>
+            <!-- Card 3 -->
+            <VBox spacing="10" styleClass="info-card" prefWidth="210">
+                <Label text="Doctor Interventions" styleClass="info-card-title"/>
+                <Label fx:id="lblInterventions" text="Loading..." styleClass="info-card-value" style="-fx-text-fill: #58a6ff;"/>
+                <Label fx:id="lblInterventionsSub" text="Actions recorded" styleClass="subtitle-label" style="-fx-font-size: 12px;"/>
+            </VBox>
+        </FlowPane>
+
+        <!-- Visual Analytics Charts -->
+        <HBox spacing="20" alignment="CENTER_LEFT">
+            <!-- Pie Chart Card -->
+            <VBox spacing="10" styleClass="info-card" HBox.hgrow="ALWAYS" prefHeight="260" prefWidth="330">
+                <Label text="Patient Urgency Distribution" styleClass="section-header"/>
+                <PieChart fx:id="riskPieChart" legendSide="RIGHT" prefHeight="185"/>
+            </VBox>
+            <!-- Bar Chart Card -->
+            <VBox spacing="10" styleClass="info-card" HBox.hgrow="ALWAYS" prefHeight="260" prefWidth="330">
+                <Label text="Vitals Telemetry Summary" styleClass="section-header"/>
+                <BarChart fx:id="vitalsBarChart" legendVisible="false" prefHeight="185">
+                    <xAxis>
+                        <CategoryAxis label="Urgency"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Records"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </HBox>
+
+        <!-- Actions / Operations Panel -->
+        <VBox spacing="15" styleClass="info-card">
+            <Label text="Doctor Toolbelt" styleClass="section-header"/>
+            <Label text="Quickly manage appointments and review logs. Launch a secured high-definition video session directly with the next patient in the queue." styleClass="body-label" wrapText="true"/>
+            <HBox spacing="15">
+                <Button text="Launch Video Call" styleClass="primary-button" />
+                <Button text="Patient Database" />
+                <Button text="Write Prescription" styleClass="secondary-button" />
+            </HBox>
+        </VBox>
+    </VBox>
+</ScrollPane>

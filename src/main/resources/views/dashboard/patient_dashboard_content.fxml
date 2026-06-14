@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+             xmlns:fx="http://javafx.com/fxml/1"
+             fitToWidth="true" style="-fx-background-color: transparent;">
+    <VBox spacing="30" style="-fx-padding: 40px 30px 30px 30px;">
+        <VBox spacing="10">
+            <Label text="Patient Health Dashboard" styleClass="title-label"/>
+            <Label text="Manage your telehealth records, view medical alerts and prescriptions." styleClass="subtitle-label"/>
+        </VBox>
+        
+        <!-- Quick Info Cards -->
+        <FlowPane hgap="20" vgap="20">
+            <!-- Card 1 -->
+            <VBox spacing="10" styleClass="info-card" prefWidth="210">
+                <Label text="Latest Heart Rate" styleClass="info-card-title"/>
+                <Label fx:id="lblHeartRate" text="Loading..." styleClass="info-card-value"/>
+                <Label fx:id="lblHeartRateSub" text="BPM" styleClass="subtitle-label" style="-fx-font-size: 12px;"/>
+            </VBox>
+            <!-- Card 2 -->
+            <VBox spacing="10" styleClass="info-card" prefWidth="210">
+                <Label text="Latest Oxygen Level" styleClass="info-card-title"/>
+                <Label fx:id="lblOxygen" text="Loading..." styleClass="info-card-value"/>
+                <Label fx:id="lblOxygenSub" text="Percent (%)" styleClass="subtitle-label" style="-fx-font-size: 12px;"/>
+            </VBox>
+            <!-- Card 3 -->
+            <VBox spacing="10" styleClass="info-card" prefWidth="210">
+                <Label text="Latest Blood Pressure" styleClass="info-card-title"/>
+                <Label fx:id="lblBloodPressure" text="Loading..." styleClass="info-card-value" style="-fx-text-fill: #58a6ff;"/>
+                <Label fx:id="lblBloodPressureSub" text="Systolic/Diastolic" styleClass="subtitle-label" style="-fx-font-size: 12px;"/>
+            </VBox>
+        </FlowPane>
+
+        <!-- Visual Telemetry Trend -->
+        <VBox spacing="10" styleClass="info-card" prefHeight="280">
+            <Label text="Vitals Telemetry Trends (Latest 10 Readings)" styleClass="section-header"/>
+            <LineChart fx:id="telemetryLineChart" prefHeight="210">
+                <xAxis>
+                    <CategoryAxis label="Submission Date"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Reading Value"/>
+                </yAxis>
+            </LineChart>
+        </VBox>
+
+        <!-- Action Panel -->
+        <VBox spacing="15" styleClass="info-card">
+            <Label text="Patient Resources" styleClass="section-header"/>
+            <Label text="Need to talk to a health specialist? Book an online video session or consult our automated AI helper to route your requests. Keep your health metrics updated." styleClass="body-label" wrapText="true"/>
+            <HBox spacing="15">
+                <Button text="Schedule Appointment" styleClass="primary-button" />
+                <Button text="View Medical Records" />
+                <Button text="My Profile" onAction="#handleShowMyProfile" styleClass="primary-button" />
+            </HBox>
+        </VBox>
+    </VBox>
+</ScrollPane>

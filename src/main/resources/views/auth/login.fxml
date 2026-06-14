@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" 
+           xmlns:fx="http://javafx.com/fxml/1" 
+           fx:controller="com.carewatch.features.auth.controller.LoginController"
+           prefWidth="960" prefHeight="640">
+
+    <VBox fx:id="cardBox" spacing="25" alignment="CENTER" maxWidth="420" maxHeight="500" styleClass="card">
+        
+        <!-- Title and Logo -->
+        <VBox spacing="5" alignment="CENTER">
+            <Label text="CareWatch" styleClass="brand-label"/>
+            <Label text="Secure Telehealth Gateway" styleClass="subtitle-label"/>
+        </VBox>
+        
+        <!-- Input Fields -->
+        <VBox spacing="15" alignment="CENTER_LEFT">
+            <VBox spacing="5">
+                <Label text="Email Address" styleClass="body-label"/>
+                <TextField fx:id="emailField" promptText="e.g. patient@gmail.com" prefHeight="40"/>
+            </VBox>
+            
+            <VBox spacing="5">
+                <Label text="Password" styleClass="body-label"/>
+                <PasswordField fx:id="passwordField" promptText="••••••••" onAction="#handleLogin" prefHeight="40"/>
+            </VBox>
+        </VBox>
+
+        <!-- Dynamic Error State -->
+        <Label fx:id="errorLabel" styleClass="error-label" wrapText="true" alignment="CENTER" textAlignment="CENTER" minHeight="20"/>
+
+        <!-- Sign In Button -->
+        <Button text="Sign In" onAction="#handleLogin" styleClass="primary-button" maxWidth="Infinity" prefHeight="42"/>
+        
+        <!-- Prototype Instructions Box -->
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #0d1117; -fx-padding: 10px; -fx-background-radius: 6px; -fx-border-color: #30363d; -fx-border-width: 1px; -fx-border-radius: 6px;">
+            <Label text="Demo Password: 123456" style="-fx-text-fill: #58a6ff; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+            <Label text="Emails: patient@gmail.com | doctor@gmail.com | admin@gmail.com" style="-fx-text-fill: #8b949e; -fx-font-size: 10px;"/>
+        </VBox>
+    </VBox>
+
+    <!-- Async Authenticating Loader Overlay -->
+    <StackPane fx:id="loadingOverlay" visible="false" styleClass="loader-overlay">
+        <VBox alignment="CENTER" spacing="15">
+            <ProgressIndicator prefWidth="45" prefHeight="45" styleClass="progress-spinner"/>
+            <Label text="Authenticating user credentials..." styleClass="loader-text"/>
+        </VBox>
+    </StackPane>
+</StackPane>

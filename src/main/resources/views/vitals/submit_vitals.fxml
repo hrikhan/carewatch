@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.carewatch.features.vitals.controller.SubmitVitalsController">
+
+    <!-- Scrollable Form Container -->
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+        <VBox alignment="CENTER" style="-fx-padding: 40px 30px 30px 30px;">
+            <VBox fx:id="formContainer" spacing="25" alignment="CENTER_LEFT" maxWidth="600" styleClass="card" VBox.vgrow="NEVER">
+                
+                <!-- Form Header -->
+                <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-border-color: transparent transparent #30363d transparent; -fx-border-width: 0 0 1.5px 0; -fx-padding: 0 0 15px 0;">
+                    <VBox spacing="3">
+                        <Label text="Submit Health Vitals" styleClass="title-label" style="-fx-font-size: 24px;"/>
+                        <Label text="Manually submit your vital readings to check urgency and notify your physician." styleClass="subtitle-label"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Input Grid -->
+                <GridPane hgap="25" vgap="18">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+
+                    <!-- Heart Rate -->
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Heart Rate (bpm) *" styleClass="body-label" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="heartRateField" promptText="e.g. 72" onKeyReleased="#handleInputsChanged"/>
+                    </VBox>
+
+                    <!-- Oxygen Level -->
+                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Oxygen Level (%) *" styleClass="body-label" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="oxygenField" promptText="e.g. 98" onKeyReleased="#handleInputsChanged"/>
+                    </VBox>
+
+                    <!-- Systolic Blood Pressure -->
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label text="Systolic BP (mmHg) *" styleClass="body-label" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="systolicBpField" promptText="e.g. 120" onKeyReleased="#handleInputsChanged"/>
+                    </VBox>
+
+                    <!-- Diastolic Blood Pressure -->
+                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label text="Diastolic BP (mmHg) *" styleClass="body-label" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="diastolicBpField" promptText="e.g. 80" onKeyReleased="#handleInputsChanged"/>
+                    </VBox>
+
+                    <!-- Temperature -->
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <Label text="Temperature (°F) *" styleClass="body-label" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="temperatureField" promptText="e.g. 98.6" onKeyReleased="#handleInputsChanged"/>
+                    </VBox>
+
+                    <!-- Sugar Level -->
+                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label text="Blood Sugar (mg/dL) *" styleClass="body-label" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="sugarField" promptText="e.g. 90" onKeyReleased="#handleInputsChanged"/>
+                    </VBox>
+
+                    <!-- Symptoms Details -->
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
+                        <Label text="Symptoms Details (Optional)" styleClass="body-label"/>
+                        <TextArea fx:id="symptomsField" promptText="Describe any pain, fatigue, or abnormal symptoms you are feeling..." prefHeight="70" wrapText="true"/>
+                    </VBox>
+                </GridPane>
+
+                <!-- Urgency Level Live Preview -->
+                <VBox spacing="10" style="-fx-background-color: #0d1117; -fx-padding: 15; -fx-border-color: #30363d; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8;">
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Estimated Urgency Classification:" styleClass="subtitle-label" style="-fx-font-size: 13px;"/>
+                        <Label fx:id="urgencyPreviewLabel" text="WAITING FOR INPUTS" styleClass="body-label" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #8b949e;"/>
+                    </HBox>
+                    <Label fx:id="previewMessageLabel" text="Please fill out Heart Rate, Oxygen, and Temperature to view live urgency classification." styleClass="subtitle-label" style="-fx-font-size: 11px;" wrapText="true"/>
+                </VBox>
+
+                <!-- Action Button Panels -->
+                <HBox spacing="15" alignment="CENTER_RIGHT" style="-fx-padding: 10px 0 0 0;">
+                    <Button text="Clear" onAction="#handleClearForm" prefWidth="100" prefHeight="38"/>
+                    <Button text="Return to Dashboard" onAction="#handleBack" prefWidth="180" prefHeight="38"/>
+                    <Button text="Submit Vitals" onAction="#handleSubmit" styleClass="primary-button" prefWidth="160" prefHeight="38"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+
+    <!-- Async Loading Overlay -->
+    <StackPane fx:id="loadingOverlay" visible="false" styleClass="loader-overlay">
+        <VBox alignment="CENTER" spacing="15">
+            <ProgressIndicator prefWidth="50" prefHeight="50" styleClass="progress-spinner"/>
+            <Label text="Analyzing and Storing Vitals..." styleClass="loader-text"/>
+        </VBox>
+    </StackPane>
+</StackPane>
